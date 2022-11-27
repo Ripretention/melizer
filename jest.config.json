@@ -1,0 +1,18 @@
+{
+	"verbose": true,
+	"preset": "ts-jest/presets/default-esm",
+	"testEnvironment": "node",
+	"testMatch": ["<rootDir>/test/**"],
+	"transform": {
+		"\\.(?:ts|d\\.ts)": [
+			"ts-jest",
+			{
+				"useESM": true,
+				"isolatedModules": true
+			}
+		]
+	},
+	"testPathIgnorePatterns": [
+      "<rootDir>/test/utils"
+    ]
+}
