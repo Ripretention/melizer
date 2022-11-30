@@ -5,6 +5,9 @@
 		"lib": [
 			"es2019"
 		],
-		"outDir": "dist/"
-	}
+		"outDir": "dist/",
+		"emitDecoratorMetadata": true,
+        "experimentalDecorators": true
+	},
+	"exclude": [ "node_modules" ]
 }

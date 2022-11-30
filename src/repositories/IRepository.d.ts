@@ -1,3 +1,3 @@
 export interface IRepository<TEntity> {
-	get(id: string): TEntity;
+	get(...args: any[]): Promise<TEntity>;
 }
