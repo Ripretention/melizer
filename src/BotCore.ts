@@ -7,6 +7,7 @@ import {UserStatistic} from "./entities/UserStatistic";
 import {UserStatisticRepository} from "./repositories/UserStatisticRepository";
 import {AuthService} from "./services/AuthService";
 import {InfoService} from "./services/InfoService";
+import {LoggingService} from "./services/LoggingService";
 import {IConfig} from "./types/IConfig";
 
 export class BotCore {
@@ -52,6 +53,7 @@ export class BotCore {
 
 		log("init services");
 		let { updates } = this.tg;
+		new LoggingService().serve(updates.use.bind(updates));
 		new InfoService().serve(updates.hearCommand.bind(updates));
 		new AuthService(this.userStatRepository).serve(updates.onMessageEvent.bind(updates));
 
