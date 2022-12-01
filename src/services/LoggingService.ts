@@ -24,10 +24,10 @@ export class LoggingService {
 			return "";
 
 		let payload = msg?.text ?? msg?.caption ?? "empty";
-		return `${msg.from.id}-${msg.from.frist_name} -> ${payload}`;
+		return `${msg.from.id}-${msg.from.first_name} -> ${payload}`;
 	}
 	private formatDate() {
 		let date = new Date();
-		return `${date.getHours()}:${date.getSeconds()}:${date.getSeconds()}`;
+		return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
 	}
 }

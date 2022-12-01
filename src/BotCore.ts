@@ -4,6 +4,7 @@ import {DataSource} from "typeorm";
 import {Chat} from "./entities/Chat";
 import {User} from "./entities/User";
 import {UserStatistic} from "./entities/UserStatistic";
+import {MessageContext} from "./MessageContext";
 import {UserStatisticRepository} from "./repositories/UserStatisticRepository";
 import {AuthService} from "./services/AuthService";
 import {InfoService} from "./services/InfoService";
@@ -34,6 +35,9 @@ export class BotCore {
 
 		log(`init tg, TOKEN=${this.config.ACCESS_TOKEN.slice(0, 8)}..`);
 		this.tg = new Tg(this.config.ACCESS_TOKEN);
+
+		log("init tg's contexts");
+		this.tg.updates.setContext("message", MessageContext);
 
 		log("init datasource");
 		this.dataSource = new DataSource({
