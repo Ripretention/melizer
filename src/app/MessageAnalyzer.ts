@@ -1,7 +1,7 @@
 const getEmojiRegex = require("emoji-regex");
 
 const emojiRegex = getEmojiRegex();
-export class MessageCalculator {
+export class MessageAnalyzer {
 	public calculate(text: string) {
 		text = text.normalize().trim();
 

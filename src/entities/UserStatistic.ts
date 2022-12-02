@@ -4,7 +4,8 @@ import {
 	Column, 
 	OneToOne,
 	PrimaryGeneratedColumn,
-	Index
+	Index,
+	ColumnTypeUndefinedError
 } from "typeorm";
 import {Chat} from "./Chat";
 import {User} from "./User";
@@ -22,4 +23,13 @@ export class UserStatistic {
 	@OneToOne(() => Chat)
 	@JoinColumn()
 	public chat: Chat;
+
+	@Column({ default: 0 })
+	public messages: number;
+	@Column({ default: 0 })
+	public words: number;
+	@Column({ default: 0 })
+	public emojis: number;
+	@Column({ default: 0 })
+	public symbols: number;
 }

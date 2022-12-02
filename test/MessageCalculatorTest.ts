@@ -1,5 +1,5 @@
-import {MessageCalculator} from "../src/app/MessageCalculator";
-const msgCalculator = new MessageCalculator();
+import {MessageAnalyzer} from "../src/app/MessageAnalyzer";
+const msgAnalyzer = new MessageAnalyzer();
 
 test("should correctly count words count", () => {
 	let text = `
@@ -8,7 +8,7 @@ test("should correctly count words count", () => {
 		Never gonna give you up.
 	`;
 
-	let result = msgCalculator.calculate(text);
+	let result = msgAnalyzer.calculate(text);
 
 	expect(result.words).toBe(18);
 });

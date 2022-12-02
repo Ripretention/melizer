@@ -7,6 +7,7 @@ import {UserStatistic} from "./entities/UserStatistic";
 import {MessageContext} from "./MessageContext";
 import {UserStatisticRepository} from "./repositories/UserStatisticRepository";
 import {AuthService} from "./services/AuthService";
+import {CalculatingService} from "./services/CalculatingService";
 import {InfoService} from "./services/InfoService";
 import {LoggingService} from "./services/LoggingService";
 import {IConfig} from "./types/IConfig";
@@ -60,6 +61,7 @@ export class BotCore {
 		new LoggingService().serve(updates.use.bind(updates));
 		new InfoService().serve(updates.hearCommand.bind(updates));
 		new AuthService(this.userStatRepository).serve(updates.onMessageEvent.bind(updates));
+		new CalculatingService(this.userStatRepository).serve(updates.onUpdate.bind(updates));
 
 		log("initialization is finished");
 	}

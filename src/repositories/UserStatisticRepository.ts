@@ -42,4 +42,7 @@ export class UserStatisticRepository implements IRepository<UserStatistic> {
 
 		return userStatistic;
 	}
+	public save(userStat: UserStatistic) {
+		return this.userStatRepository.save(userStat);
+	}
 }
