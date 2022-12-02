@@ -8,11 +8,11 @@ export class MessageAnalyzer {
 		return {
 			emojis: text.match(emojiRegex)?.length ?? 0,
 			symbols: text
-				.replace(/\s/m, "")
+				.replace(/\s/g, "")
 				.replace(emojiRegex, "")
 				.length,
 			words: text
-				.replace(/ {2,}/, " ")
+				.replace(/ {2,}/g, " ")
 				.split(/\s/)
 				.filter(w => w != "")
 				.length
