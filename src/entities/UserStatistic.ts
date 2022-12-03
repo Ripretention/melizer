@@ -7,12 +7,13 @@ import {
 	Index,
 	ColumnTypeUndefinedError
 } from "typeorm";
+import {IMessageStatistic} from "../types/IMessageStatistic";
 import {Chat} from "./Chat";
 import {User} from "./User";
 
 @Entity()
 @Index(["user", "chat"], { unique: true })
-export class UserStatistic {
+export class UserStatistic implements IMessageStatistic {
 	@PrimaryGeneratedColumn()
 	public id: number;
 

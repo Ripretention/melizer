@@ -15,7 +15,7 @@ export class CalculatingService {
 	}
 
 	public async countMessage(ctx: MessageContext) {
-		let msgStat = this.msgAnalyzer.calculate(ctx.text);
+		let msgStat = this.msgAnalyzer.analyze(ctx.text);
 
 		ctx.userStat.messages++;
 		ctx.userStat.emojis += msgStat.emojis;

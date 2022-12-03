@@ -28,6 +28,7 @@ export class LoggingService {
 	}
 	private formatDate() {
 		let date = new Date();
-		return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+		let pad = (n: number) => n.toString().padStart(2, "0");
+		return `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 	}
 }

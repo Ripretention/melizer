@@ -8,23 +8,23 @@ test("should correctly count words", () => {
 		Never gonna give you up.
 	`;
 
-	let result = msgAnalyzer.calculate(text);
+	let result = msgAnalyzer.analyze(text);
 
 	expect(result.words).toBe(18);
 });
 test("should correctly count emojis", () => {
 	let text = ":) lol 😽  🖤  👌  🧑🏿 message 32  異體字 ку.  👀   👯";
 
-	let result = msgAnalyzer.calculate(text);
+	let result = msgAnalyzer.analyze(text);
 	
 	expect(result.emojis).toBe(6);
 });
 test("should correctly count symbols", () => {
 	let text = `
-		hello  , there is some symbols
+		hello  , there  😽  🖤  👌 is some symbols
 	`;
 
-	let result = msgAnalyzer.calculate(text);
+	let result = msgAnalyzer.analyze(text);
 
 	expect(result.symbols).toBe(24);
 });
