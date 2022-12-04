@@ -4,7 +4,7 @@ import {DataSource} from "typeorm";
 import {Chat} from "./entities/Chat";
 import {User} from "./entities/User";
 import {UserStatistic} from "./entities/UserStatistic";
-import {MessageContext} from "./MessageContext";
+import {MessageContext} from "./infrastructure/MessageContext";
 import {UserStatisticRepository} from "./repositories/UserStatisticRepository";
 import {AuthService} from "./services/AuthService";
 import {CalculatingService} from "./services/CalculatingService";

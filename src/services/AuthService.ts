@@ -1,5 +1,5 @@
 import {TgUpdateHandler} from "tg-io";
-import {MessageContext} from "../MessageContext";
+import {MessageContext} from "../infrastructure/MessageContext";
 import {UserStatisticRepository} from "../repositories/UserStatisticRepository";
 
 export class AuthService {

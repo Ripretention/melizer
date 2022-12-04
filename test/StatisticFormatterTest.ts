@@ -1,8 +1,8 @@
-import {StatisticDescriptor} from "../src/app/StatisticDescriptor"
+import {StatisticFormatter} from "../src/StatisticFormatter";
 import {IMessageStatistic} from "../src/types/IMessageStatistic";
 
 const normalizeForTesting = (str: string) => str.replace(/\s/g, "").normalize().trim();
-const statisticDescriptor = new StatisticDescriptor();
+const statisticFormatter = new StatisticFormatter();
 test("should return correct statistic", () => {
 	let statistic: IMessageStatistic = {
 		emojis: 12,
@@ -11,7 +11,7 @@ test("should return correct statistic", () => {
 		words: 2
 	};
 
-	let formattedStatistic = statisticDescriptor.createMessageStatisticDescription(statistic);
+	let formattedStatistic = statisticFormatter.format(statistic);
 
 	expect(normalizeForTesting(formattedStatistic.text)).toBe(normalizeForTesting(`
 		Messages: 213321

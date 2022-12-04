@@ -1,6 +1,6 @@
 import {TgUpdateHandler} from "tg-io";
 import {MessageAnalyzer} from "../app/MessageAnalyzer";
-import {MessageContext} from "../MessageContext";
+import {MessageContext} from "../infrastructure/MessageContext";
 import {UserStatisticRepository} from "../repositories/UserStatisticRepository";
 
 type OnUpdateType = InstanceType<typeof TgUpdateHandler>["onUpdate"];

@@ -1,11 +1,11 @@
 import {TgMessageBuilder} from "tg-io";
-import {IMessageStatistic} from "../types/IMessageStatistic";
+import {IMessageStatistic} from "./types/IMessageStatistic";
 
-export class StatisticDescriptor {
-	public createDescription(stat: IMessageStatistic) {
-		return this.createMessageStatisticDescription(stat);
+export class StatisticFormatter {
+	public format(stat: IMessageStatistic) {
+		return this.formatMessageStatistic(stat);
 	}
-	public createMessageStatisticDescription(stat: IMessageStatistic) {
+	public formatMessageStatistic(stat: IMessageStatistic) {
 		return TgMessageBuilder.build(f => {
 			let format = (n: number) => f.italic(n.toString());
 			return `
