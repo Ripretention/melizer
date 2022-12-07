@@ -58,12 +58,13 @@ export class BotCore {
 		this.userStatRepository = new UserStatisticRepository(this.dataSource);
 
 		log("init services");
-		let { updates } = this.tg;
-		new LoggingService().serve(updates.use.bind(updates));
-		new InfoService().serve(updates.hearCommand.bind(updates));
-		new AuthService(this.userStatRepository).serve(updates.onMessageEvent.bind(updates));
-		new CalculatingService(this.userStatRepository).serve(updates.onUpdate.bind(updates));
-		updates.implementDecorators(new StatisticService());
+		this.tg.updates.implementDecorators(
+			new LoggingService(),
+			new AuthService(this.userStatRepository),
+			new CalculatingService(this.userStatRepository),
+			new InfoService(),
+			new StatisticService()
+		);
 
 		log("initialization is finished");
 	}

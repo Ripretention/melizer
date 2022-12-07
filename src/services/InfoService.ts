@@ -1,9 +1,9 @@
-import {TgUpdateHandler} from "tg-io";
+import {TgCommand} from "tg-io";
+import {MessageContext} from "../infrastructure/MessageContext";
 
 export class InfoService {
-	public serve(hearCommand: InstanceType<typeof TgUpdateHandler>["hearCommand"]) {
-		hearCommand(/^\/ping/i, async ctx => {
-			await ctx.replyMessage("pong!");
-		});
+	@TgCommand(/^\/ping$/i)
+	public sendPing(ctx: MessageContext) {
+		return ctx.replyMessage("pong!");
 	}
 }

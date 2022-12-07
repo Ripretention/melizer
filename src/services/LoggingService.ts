@@ -1,18 +1,15 @@
-import {TgEntity, TgUpdateHandler} from "tg-io";
+import {TgEntity, TgUse} from "tg-io";
 
-type UseType = InstanceType<typeof TgUpdateHandler>["use"];
 export class LoggingService {
-	public serve(use: UseType) {
-		use(this.log);
-	}
-	private log: Parameters<UseType>[0] = (upd, next) => {
+	@TgUse()
+	public log(upd: TgEntity.IUpdateResult, next: () => void) {
 		let events = Object.keys(upd)
 			.filter(k => k !== "update_id")
 			.join(", ");
 
 		console.log(`[${this.formatDate()}] ${events} | ${this.getMessageData(upd)}`);
 		next();
-	};
+	}
 
 	private getMessageData(upd: TgEntity.IUpdateResult) {
 		let msg: TgEntity.IMessage;
