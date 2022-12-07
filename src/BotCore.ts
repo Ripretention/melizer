@@ -10,6 +10,7 @@ import {AuthService} from "./services/AuthService";
 import {CalculatingService} from "./services/CalculatingService";
 import {InfoService} from "./services/InfoService";
 import {LoggingService} from "./services/LoggingService";
+import {StatisticService} from "./services/StatisticService";
 import {IConfig} from "./types/IConfig";
 
 export class BotCore {
@@ -62,6 +63,7 @@ export class BotCore {
 		new InfoService().serve(updates.hearCommand.bind(updates));
 		new AuthService(this.userStatRepository).serve(updates.onMessageEvent.bind(updates));
 		new CalculatingService(this.userStatRepository).serve(updates.onUpdate.bind(updates));
+		updates.implementDecorators(new StatisticService());
 
 		log("initialization is finished");
 	}

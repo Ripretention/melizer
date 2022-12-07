@@ -1,8 +1,14 @@
-import {StatisticFormatter} from "../src/StatisticFormatter";
+import {StatisticFormatter, UnitFormatter} from "../src/formatters";
 import {IMessageStatistic} from "../src/types/IMessageStatistic";
+const getEmojiRegex = require("emoji-regex");
+const emojiRegex = getEmojiRegex();
 
-const normalizeForTesting = (str: string) => str.replace(/\s/g, "").normalize().trim();
-const statisticFormatter = new StatisticFormatter();
+const normalizeForTesting = (str: string) => str
+	.replace(/\s/g, "")
+	.replace(emojiRegex, "")
+	.normalize()
+	.trim();
+const statisticFormatter = new StatisticFormatter(new UnitFormatter());
 test("should return correct statistic", () => {
 	let statistic: IMessageStatistic = {
 		emojis: 12,
@@ -14,7 +20,7 @@ test("should return correct statistic", () => {
 	let formattedStatistic = statisticFormatter.format(statistic);
 
 	expect(normalizeForTesting(formattedStatistic.text)).toBe(normalizeForTesting(`
-		Messages: 213321
+		Messages: 213.3k
 		Emojis: 12
 		Symbols: 432
 		Words: 2
