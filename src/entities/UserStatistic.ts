@@ -5,7 +5,8 @@ import {
 	OneToOne,
 	PrimaryGeneratedColumn,
 	Index,
-	ColumnTypeUndefinedError
+	ColumnTypeUndefinedError,
+	CreateDateColumn
 } from "typeorm";
 import {IMessageStatistic} from "../types/IMessageStatistic";
 import {Chat} from "./Chat";
@@ -25,6 +26,8 @@ export class UserStatistic implements IMessageStatistic {
 	@JoinColumn()
 	public chat: Chat;
 
+	@CreateDateColumn({ type: "timestamp" })
+	public lastActivity: Date;
 	@Column({ default: 0 })
 	public messages: number;
 	@Column({ default: 0 })
