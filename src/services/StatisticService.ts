@@ -9,7 +9,7 @@ export class StatisticService {
 		let appeal = TgMessageBuilder.build(f => "📊 Message statistic of " + f.bold(ctx.sender.appeal) + ":\n");
 		await ctx.replyMessage(TgMessageBuilder.concat(
 			appeal,
-			this.statisticFormatter.formatMessageStatistic(ctx.userStat)
+			this.statisticFormatter.format(ctx.userStat)
 		));
 	}
 }
