@@ -2,15 +2,19 @@ import * as debug from "debug";
 import {Tg} from "tg-io";
 import {DataSource} from "typeorm";
 import {Chat} from "./entities/Chat";
+import {ChatStatistic} from "./entities/ChatStatistic";
 import {User} from "./entities/User";
 import {UserStatistic} from "./entities/UserStatistic";
+import {StatisticFormatter, UnitFormatter} from "./formatters";
 import {MessageContext} from "./infrastructure/MessageContext";
+import {ChatStatisticRepository} from "./repositories/ChatStatisticRepository";
 import {UserStatisticRepository} from "./repositories/UserStatisticRepository";
 import {AuthService} from "./services/AuthService";
 import {CalculatingService} from "./services/CalculatingService";
+import {ChatStatisticService} from "./services/ChatStatisticService";
 import {InfoService} from "./services/InfoService";
 import {LoggingService} from "./services/LoggingService";
-import {StatisticService} from "./services/StatisticService";
+import {UserStatisticService} from "./services/UserStatisticService";
 import {IConfig} from "./types/IConfig";
 
 export class BotCore {
@@ -19,6 +23,7 @@ export class BotCore {
 	private label: string;
 	private dataSource: DataSource;
 	private userStatRepository: UserStatisticRepository;
+	private chatStatRepository: ChatStatisticRepository;
 	constructor(private readonly config: IConfig) {}
 
 	public async start(label?: string) {
@@ -49,21 +54,35 @@ export class BotCore {
 			port: this.config.PORT,
 			password: this.config.PASSWORD,
 			database: this.config.DATABASE,
-			entities: [User, Chat, UserStatistic],
+			entities: [
+				User, 
+				Chat, 
+				UserStatistic, 
+				ChatStatistic
+			],
 			synchronize: true
 		});
 		this.dataSource = await this.dataSource.initialize();
 
 		log("init repositories");
 		this.userStatRepository = new UserStatisticRepository(this.dataSource);
+		this.chatStatRepository = new ChatStatisticRepository(this.dataSource);
 
 		log("init services");
+		let statFormatter = new StatisticFormatter(new UnitFormatter());
 		this.tg.updates.implementDecorators(
 			new LoggingService(),
-			new AuthService(this.userStatRepository),
-			new CalculatingService(this.userStatRepository),
+			new AuthService(
+				this.userStatRepository,
+				this.chatStatRepository
+			),
+			new CalculatingService(
+				this.userStatRepository,
+				this.chatStatRepository
+			),
 			new InfoService(),
-			new StatisticService()
+			new UserStatisticService(statFormatter),
+			new ChatStatisticService(statFormatter)
 		);
 
 		log("initialization is finished");
