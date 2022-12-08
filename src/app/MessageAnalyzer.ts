@@ -5,7 +5,7 @@ const getEmojiRegex = require("emoji-regex");
 const emojiRegex = getEmojiRegex();
 export class MessageAnalyzer {
 	public analyze(text: string): IMessageStatistic {
-		text = text.normalize().trim();
+		text = text?.normalize()?.trim() ?? "";
 
 		return {
 			messages: 1,

@@ -1,20 +1,18 @@
 import {
 	Entity, 
 	JoinColumn,
-	Column, 
 	OneToOne,
 	PrimaryGeneratedColumn,
 	Index,
-	ColumnTypeUndefinedError,
 	CreateDateColumn
 } from "typeorm";
-import {IMessageStatistic} from "../types/IMessageStatistic";
 import {Chat} from "./Chat";
+import {Statistic} from "./Statistic";
 import {User} from "./User";
 
 @Entity()
 @Index(["user", "chat"], { unique: true })
-export class UserStatistic implements IMessageStatistic {
+export class UserStatistic extends Statistic {
 	@PrimaryGeneratedColumn()
 	public id: number;
 
@@ -28,12 +26,4 @@ export class UserStatistic implements IMessageStatistic {
 
 	@CreateDateColumn({ type: "timestamp" })
 	public lastActivity: Date;
-	@Column({ default: 0 })
-	public messages: number;
-	@Column({ default: 0 })
-	public words: number;
-	@Column({ default: 0 })
-	public emojis: number;
-	@Column({ default: 0 })
-	public symbols: number;
 }
