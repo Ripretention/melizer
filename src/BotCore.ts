@@ -70,6 +70,9 @@ export class BotCore {
 
 		log("init services");
 		let statFormatter = new StatisticFormatter(new UnitFormatter());
+		let infoService = new InfoService();
+		let userStatService = new UserStatisticService(statFormatter);
+		let chatStatService = new ChatStatisticService(statFormatter);
 		this.tg.updates.implementDecorators(
 			new LoggingService(),
 			new AuthService(
@@ -80,10 +83,18 @@ export class BotCore {
 				this.userStatRepository,
 				this.chatStatRepository
 			),
-			new InfoService(),
-			new UserStatisticService(statFormatter),
-			new ChatStatisticService(statFormatter)
+			infoService,
+			userStatService,
+			chatStatService
 		);
+
+		log("init commands");
+		this.tg.commands.implementDecorators(
+			infoService,
+			userStatService,
+			chatStatService
+		);
+		await this.tg.uploadCommands();
 
 		log("initialization is finished");
 	}

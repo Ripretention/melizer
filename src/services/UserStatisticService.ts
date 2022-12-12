@@ -1,10 +1,11 @@
-import {TgCommand, TgMessageBuilder} from "tg-io";
+import {TgCommand, TgCommandInfo, TgMessageBuilder} from "tg-io";
 import {MessageContext} from "../infrastructure/MessageContext";
 import {StatisticFormatter} from "../formatters";
 
 export class UserStatisticService {
 	constructor(private readonly statFormatter: StatisticFormatter) {}
 
+	@TgCommandInfo("stat", "get statistic")
 	@TgCommand(/^\/stat/)
 	public async sendMessageStatistic(ctx: MessageContext) {
 		let appeal = TgMessageBuilder.build(f => "📊 Message statistic of " + f.bold(ctx.sender.appeal) + ":\n");
