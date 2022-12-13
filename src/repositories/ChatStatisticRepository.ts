@@ -13,7 +13,8 @@ export class ChatStatisticRepository implements IRepository<ChatStatistic> {
 		return this.chatStatRepository.findOne({
 			where: {
 				chat: { id }
-			}
+			},
+			relations: ["chat"]
 		});
 	}
 	public async create(originChat: TgModel.Chat) {

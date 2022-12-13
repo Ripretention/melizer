@@ -11,6 +11,9 @@ export class AuthService {
 
 	@TgEvent("chat")
 	public async auth(ctx: MessageContext, next: () => void) {
+		if (!ctx.chat)
+			return;
+
 		ctx.chatStat = await this.authChat(ctx.chat);
 		ctx.userStat = await this.authUser(ctx.sender, ctx.chat);
 

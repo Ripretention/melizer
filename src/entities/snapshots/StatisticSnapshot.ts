@@ -1,5 +1,5 @@
 import {CreateDateColumn, Entity} from "typeorm";
-import {Statistic} from "../";
+import {Statistic} from "../statistics";
 
 @Entity()
 export class StatisticSnapshot extends Statistic {

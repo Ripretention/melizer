@@ -19,7 +19,8 @@ export class UserStatisticRepository implements IRepository<UserStatistic> {
 				chat: {
 					id: chatId
 				}
-			}
+			},
+			relations: ["chat", "user"]
 		});
 	}
 	public async create(originUsr: TgModel.User, originChat: TgModel.Chat) {

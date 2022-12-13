@@ -4,3 +4,4 @@ export * from "./InfoService";
 export * from "./ChatStatisticService";
 export * from "./UserStatisticService";
 export * from "./LoggingService";
+export * from "./SnapshotService";

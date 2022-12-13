@@ -1,11 +1,13 @@
-import {JoinTable, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Chat, StatisticSnapshot} from "../";
+import {Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {StatisticSnapshot} from "./";
+import {Chat} from "../";
 
+@Entity()
 export class ChatStatisticSnapshot extends StatisticSnapshot {
 	@PrimaryGeneratedColumn()
 	public id: number;
 
 	@OneToOne(() => Chat)
-	@JoinTable()
+	@JoinColumn()
 	public chat: Chat;
 }

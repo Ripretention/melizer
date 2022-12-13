@@ -1,7 +1,9 @@
 import {DataSource, MoreThanOrEqual} from "typeorm";
 import {UserStatistic, UserStatisticSnapshot} from "../entities";
+import {ObjectUtils} from "../Utils";
+import {IRepository} from "./IRepository";
 
-export class UserSnapshotRepository {
+export class UserSnapshotRepository implements IRepository<UserStatisticSnapshot> {
 	constructor(private readonly source: DataSource) {} 
 	private readonly repository = this.source.getRepository(UserStatisticSnapshot);
 
@@ -23,7 +25,7 @@ export class UserSnapshotRepository {
 			}
 		});
 	}
-	public async craete(userStat: UserStatistic) {
+	public async create(userStat: UserStatistic) {
 		let date = new Date();
 		date.setHours(0);
 		date.setMinutes(0);
@@ -32,6 +34,9 @@ export class UserSnapshotRepository {
 		
 		return await this.get(userStat, date)
 			? null
-			: this.repository.create({ ...userStat, date });
+			: this.repository.save({ 
+				date,
+				...ObjectUtils.filterObjectByKey(userStat, k => k !== "id")
+			});
 	}
 }

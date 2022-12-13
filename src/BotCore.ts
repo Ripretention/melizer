@@ -5,21 +5,28 @@ import {IConfig} from "./types/IConfig";
 import {
 	Chat, 
 	ChatStatistic,
+	ChatStatisticSnapshot,
 	User,
-	UserStatistic
+	UserStatistic,
+	UserStatisticSnapshot
 } from "./entities";
 import {
 	AuthService,
 	InfoService,
 	LoggingService,
+	SnapshotService,
 	CalculatingService,
 	ChatStatisticService,
 	UserStatisticService
 } from "./services";
+import {
+	UserStatisticRepository,
+	ChatStatisticRepository,
+	ChatSnapshotRepository,
+	UserSnapshotRepository
+} from "./repositories";
 import {StatisticFormatter, UnitFormatter} from "./formatters";
 import {MessageContext} from "./infrastructure/MessageContext";
-import {ChatStatisticRepository} from "./repositories/ChatStatisticRepository";
-import {UserStatisticRepository} from "./repositories/UserStatisticRepository";
 
 export class BotCore {
 	private tg: Tg;
@@ -28,6 +35,8 @@ export class BotCore {
 	private dataSource: DataSource;
 	private userStatRepository: UserStatisticRepository;
 	private chatStatRepository: ChatStatisticRepository;
+	private chatSnapshotRepository: ChatSnapshotRepository;
+	private userSnapshotRepository: UserSnapshotRepository;
 	constructor(private readonly config: IConfig) {}
 
 	public async start(label?: string) {
@@ -62,7 +71,9 @@ export class BotCore {
 				User, 
 				Chat, 
 				UserStatistic, 
-				ChatStatistic
+				ChatStatistic,
+				UserStatisticSnapshot,
+				ChatStatisticSnapshot
 			],
 			synchronize: true
 		});
@@ -71,6 +82,8 @@ export class BotCore {
 		log("init repositories");
 		this.userStatRepository = new UserStatisticRepository(this.dataSource);
 		this.chatStatRepository = new ChatStatisticRepository(this.dataSource);
+		this.chatSnapshotRepository = new ChatSnapshotRepository(this.dataSource);
+		this.userSnapshotRepository = new UserSnapshotRepository(this.dataSource);
 
 		log("init services");
 		let infoService = new InfoService();
@@ -86,6 +99,10 @@ export class BotCore {
 			new CalculatingService(
 				this.userStatRepository,
 				this.chatStatRepository
+			),
+			new SnapshotService(
+				this.userSnapshotRepository,
+				this.chatSnapshotRepository
 			),
 			infoService,
 			userStatService,

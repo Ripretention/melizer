@@ -1,4 +1,4 @@
-export * from "./snapshots";
+export * from "./Chat";
+export * from "./User";
 export * from "./statistics";
-export { Chat } from "./Chat";
-export { User } from "./User";
+export * from "./snapshots";

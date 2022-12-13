@@ -6,7 +6,8 @@ import {
 	Index,
 	CreateDateColumn
 } from "typeorm";
-import {Statistic, Chat} from "../";
+import {Statistic} from "./";
+import {Chat} from "../";
 
 @Entity()
 export class ChatStatistic extends Statistic {
