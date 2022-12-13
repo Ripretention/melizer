@@ -2,8 +2,8 @@ import {
 	Entity, 
 	Column
 } from "typeorm";
-import {IAttachmentStatistic} from "../types/IAttachmentStatistic";
-import {IMessageStatistic} from "../types/IMessageStatistic";
+import {IAttachmentStatistic} from "../../types/IAttachmentStatistic";
+import {IMessageStatistic} from "../../types/IMessageStatistic";
 
 @Entity()
 export class Statistic implements IMessageStatistic, IAttachmentStatistic {

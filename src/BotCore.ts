@@ -1,21 +1,25 @@
-import * as debug from "debug";
 import {Tg} from "tg-io";
+import * as debug from "debug";
 import {DataSource} from "typeorm";
-import {Chat} from "./entities/Chat";
-import {ChatStatistic} from "./entities/ChatStatistic";
-import {User} from "./entities/User";
-import {UserStatistic} from "./entities/UserStatistic";
+import {IConfig} from "./types/IConfig";
+import {
+	Chat, 
+	ChatStatistic,
+	User,
+	UserStatistic
+} from "./entities";
+import {
+	AuthService,
+	InfoService,
+	LoggingService,
+	CalculatingService,
+	ChatStatisticService,
+	UserStatisticService
+} from "./services";
 import {StatisticFormatter, UnitFormatter} from "./formatters";
 import {MessageContext} from "./infrastructure/MessageContext";
 import {ChatStatisticRepository} from "./repositories/ChatStatisticRepository";
 import {UserStatisticRepository} from "./repositories/UserStatisticRepository";
-import {AuthService} from "./services/AuthService";
-import {CalculatingService} from "./services/CalculatingService";
-import {ChatStatisticService} from "./services/ChatStatisticService";
-import {InfoService} from "./services/InfoService";
-import {LoggingService} from "./services/LoggingService";
-import {UserStatisticService} from "./services/UserStatisticService";
-import {IConfig} from "./types/IConfig";
 
 export class BotCore {
 	private tg: Tg;
@@ -69,8 +73,8 @@ export class BotCore {
 		this.chatStatRepository = new ChatStatisticRepository(this.dataSource);
 
 		log("init services");
-		let statFormatter = new StatisticFormatter(new UnitFormatter());
 		let infoService = new InfoService();
+		let statFormatter = new StatisticFormatter(new UnitFormatter());
 		let userStatService = new UserStatisticService(statFormatter);
 		let chatStatService = new ChatStatisticService(statFormatter);
 		this.tg.updates.implementDecorators(

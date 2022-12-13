@@ -6,9 +6,7 @@ import {
 	Index,
 	CreateDateColumn
 } from "typeorm";
-import {Chat} from "./Chat";
-import {Statistic} from "./Statistic";
-import {User} from "./User";
+import {Statistic, User, Chat} from "../";
 
 @Entity()
 @Index(["user", "chat"], { unique: true })

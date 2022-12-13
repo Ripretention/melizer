@@ -1,8 +1,7 @@
 import {TgModel} from "tg-io";
 import {DataSource} from "typeorm";
-import {Chat} from "../entities/Chat";
 import {IRepository} from "./IRepository";
-import {ChatStatistic} from "../entities/ChatStatistic";
+import {Chat, ChatStatistic} from "../entities";
 
 export class ChatStatisticRepository implements IRepository<ChatStatistic> {
 	constructor(private readonly source: DataSource) {}

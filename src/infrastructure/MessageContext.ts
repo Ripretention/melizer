@@ -1,6 +1,5 @@
 import {TgContext} from "tg-io";
-import {ChatStatistic} from "../entities/ChatStatistic";
-import {UserStatistic} from "../entities/UserStatistic";
+import {UserStatistic, ChatStatistic} from "../entities";
 
 export class MessageContext extends TgContext.Message {
 	public userStat: UserStatistic | null;
